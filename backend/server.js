@@ -7,7 +7,7 @@ const Song = require('./models/song'); // Import the Song model
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
 // Middleware
 app.use(cors());
@@ -60,7 +60,7 @@ app.get('/songs/:leader', async (req, res) => {
     const songs = await db.model('Song', Song.schema).find().select('-__v'); // Exclude the __v field
     res.status(200).send(songs);
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).json({ message: 'Error fetching songs' });
   }
 });
 
