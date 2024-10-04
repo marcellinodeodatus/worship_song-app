@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path'); // Add path module to serve the frontend
 const Song = require('./models/song'); // Import the Song model
 require('dotenv').config();
 
@@ -25,8 +26,11 @@ async function run() {
   }
 }
 
-// Routes
-app.get('/', (req, res) => {
+// Serve static files from the React app (frontend/build)
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+// API Routes
+app.get('/api', (req, res) => {
   res.send('Worship Song API is running');
 });
 
@@ -45,7 +49,6 @@ app.post('/songs/:leader', async (req, res) => {
     res.status(400).send(error);
   }
 });
-
 
 // Get all songs for a specific worship leader
 app.get('/songs/:leader', async (req, res) => {
@@ -94,6 +97,11 @@ app.delete('/songs/:leader/:id', async (req, res) => {
     console.error("Error deleting song:", error);
     res.status(500).send(error);
   }
+});
+
+// Catch-all route to serve the React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 
 // Start server
