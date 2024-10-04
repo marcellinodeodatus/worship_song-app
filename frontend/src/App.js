@@ -37,7 +37,7 @@ function App() {
   const addSong = () => {
     if (editingSong) {
       // Update existing song
-      axios.put(`http://localhost:10000/songs/${leader}/${editingSong._id}`, { ...newSong })
+      axios.put(`https://worship-song-app.onrender.com/songs/${leader}/${editingSong._id}`, { ...newSong })
         .then(response => {
           const updatedSongs = songs.map(song => (song._id === editingSong._id ? response.data : song));
           setSongs(updatedSongs);
@@ -46,7 +46,7 @@ function App() {
         .catch(error => console.log(error));
     } else {
       // Add new song
-      axios.post(`http://localhost:10000/songs/${leader}`, { ...newSong })
+      axios.post(`https://worship-song-app.onrender.com/songs/${leader}`, { ...newSong })
         .then(response => {
           setSongs([...songs, response.data]);
           resetForm();
@@ -63,7 +63,7 @@ function App() {
   };
 
   const deleteSong = (id) => {
-    axios.delete(`http://localhost:10000/songs/${leader}/${id}`)
+    axios.delete(`https://worship-song-app.onrender.com/songs/${leader}/${id}`)
       .then(() => {
         setSongs(songs.filter(song => song._id !== id)); // Remove deleted song from state
       })
