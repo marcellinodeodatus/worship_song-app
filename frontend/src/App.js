@@ -17,10 +17,13 @@ function App() {
   }, [leader]);
 
   const fetchSongs = (selectedLeader) => {
-    axios.get(`http://localhost:5000/songs/${selectedLeader}`)
-      .then(response => setSongs(response.data))
-      .catch(error => console.log(error));
-  };
+  axios.get(`http://localhost:5000/songs/${selectedLeader}`)
+    .then(response => {
+      console.log("Fetched songs:", response.data); // Log the response data
+      setSongs(response.data);
+    })
+    .catch(error => console.log(error));
+};
 
   const handleLeaderClick = (selectedLeader) => {
     setLeader(selectedLeader);
