@@ -1,0 +1,11 @@
+### GET Request
+GET http://localhost:5000/songs/Nikita
+
+### POST Request
+POST http://localhost:5000/songs/Grace
+Content-Type: application/json
+
+{
+  "title": "Amazing Grace",
+  "key": "G"
+}
